@@ -4,9 +4,15 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include <QLabel>
+#include <QLineEdit>
+#include <QPushButton>
 #include <QComboBox>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QTimer>
+#include <QPainter>
+#include <QFont>
+#include <QTime>
 
 namespace Ui {
 class MainWindow;
@@ -43,6 +49,22 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+
+    QTimer *timer;
+
+    void showDateTime();
+
+    void showClock();
+
+    void showBmi();
+
+    void showCountDown();
+
+    void showTimestamp();
+
+    void showConvertTimestamp();
+
+    void showUuid();
 };
 
 #endif // MAINWINDOW_H
