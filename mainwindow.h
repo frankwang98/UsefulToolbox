@@ -13,6 +13,11 @@
 #include <QPainter>
 #include <QFont>
 #include <QTime>
+#include <QGeoCoordinate>
+#include <QQmlApplicationEngine>
+#include <QQmlContext>
+#include <QQuickView>
+#include <QtQuickWidgets>
 
 namespace Ui {
 class MainWindow;
@@ -55,6 +60,8 @@ private:
     void showDateTime();
 
     void showClock();
+
+    void showWeather();
 
     void showBmi();
 

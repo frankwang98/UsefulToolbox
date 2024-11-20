@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>mapApp.qml</file>
+        <file>helloApp.qml</file>
+        <file>cityIds.json</file>
+    </qresource>
+</RCC>

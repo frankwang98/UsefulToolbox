@@ -4,9 +4,9 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui location positioning quickwidgets
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets quick
 
 TARGET = UsefulToolbox
 TEMPLATE = app
@@ -33,12 +33,22 @@ HEADERS += \
         mainwindow.h \
     utils.h \
     utils.h \
-    my_style.h
+    my_style.h \
+    httplib.h \
+    json.hpp
 
 FORMS += \
         mainwindow.ui
+
+LIBS += -lpthread -lWs2_32
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    mapApp.qml
+
+RESOURCES += \
+    qrc.qrc

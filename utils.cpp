@@ -1,4 +1,5 @@
 #include "utils.h"
+#include <QDebug>
 
 QString getSysInfo()
 {
@@ -62,4 +63,50 @@ QString getUuidInfo(int count)
     }
 
     return result;
+}
+
+QByteArray getJsonData(const QString &url)
+{
+    QFile file(url);
+    if (!file.open(QIODevice::ReadOnly)) {
+        qDebug() << "Could not open the file!";
+    }
+
+    QByteArray fileData = file.readAll();
+    file.close();
+
+    return fileData;
+}
+
+int getAreaIdByCityName(const QString &cityName, const QByteArray &fileData)
+{
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(fileData);
+    if (jsonDoc.isNull()) {
+        qDebug() << "Failed to create JSON doc.";
+    }
+
+    if (!jsonDoc.isArray()) {
+        qDebug() << "JSON is not an array.";
+    }
+
+    QJsonArray jsonArray = jsonDoc.array();
+
+    // for (const QJsonValue &value : jsonArray) {
+    //     if (value.isObject()) {
+    //         QJsonObject jsonObject = value.toObject();
+    //         int areaid = jsonObject["areaid"].toInt();
+    //         QString countyname = jsonObject["countyname"].toString();
+    //         qDebug() << "Area ID:" << areaid << "County Name:" << countyname;
+    //     }
+    // }
+
+    for (const QJsonValue &value : jsonArray) {
+        QJsonObject obj = value.toObject();
+        QString countyName = obj["countyname"].toString();
+        if (countyName == cityName) {
+            return obj["areaid"].toInt();
+        }
+    }
+
+    return -1;
 }

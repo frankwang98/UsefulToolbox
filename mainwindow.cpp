@@ -3,6 +3,7 @@
 #include <QDebug>
 #include "utils.h"
 #include "my_style.h"
+#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -17,6 +18,8 @@ MainWindow::MainWindow(QWidget *parent) :
     
     ui->stackedWidget->setCurrentWidget(ui->pageHome);
     ui->pbHome->hide();
+
+    
 }
 
 MainWindow::~MainWindow()
@@ -47,6 +50,19 @@ void MainWindow::on_pbMap_clicked()
     qDebug() << "pbMap";
     ui->stackedWidget->setCurrentWidget(ui->pageMap);
     ui->pbHome->show();
+
+    QQuickWidget* mapQml = ui->quickWidget;
+    mapQml->rootContext()->setContextProperty("$color", "white");
+    QUrl source("qrc:/mapApp.qml");
+    mapQml->setSource(source);
+    QUrl source2("qrc:/helloApp.qml");
+    mapQml->setSource(source2);
+    mapQml->setResizeMode(QQuickWidget::SizeRootObjectToView);
+    // mapQml->resize(400, 600);
+
+    // QQuickItem* qmlItem = ui->quickWidget->rootObject();
+    // connect(qmlItem, SIGNAL(qmlClick()), this, SLOT(onQmlClick()));
+    // connect(this, SIGNAL(cppClick()), qmlItem, SLOT(onCppClick()));
 }
 
 void MainWindow::on_pbWeather_clicked()
@@ -54,6 +70,9 @@ void MainWindow::on_pbWeather_clicked()
     qDebug() << "pbWeather";
     ui->stackedWidget->setCurrentWidget(ui->pageWeather);
     ui->pbHome->show();
+
+    ui->leWeatherCity->setPlaceholderText("输入城市名");
+    connect(ui->pbWeatherCity, &QPushButton::clicked, this, &MainWindow::showWeather);
 }
 
 void MainWindow::on_pbBmi_clicked()
@@ -105,6 +124,7 @@ void MainWindow::on_pbUuid_clicked()
     ui->stackedWidget->setCurrentWidget(ui->pageUuid);
     ui->pbHome->show();
 
+    ui->leUuidCount->setPlaceholderText("输入UUID数量");
     connect(ui->pbUuidGen, &QPushButton::clicked, this, &MainWindow::showUuid);
 }
 
@@ -139,6 +159,14 @@ void MainWindow::showClock()
     ui->lbClockInfo->setStyleSheet(clockStyle);
 }
 
+void MainWindow::showWeather()
+{
+    QByteArray fileData = getJsonData("cityIds.json");
+    // qDebug() << "test: " << getAreaIdByCityName("xx", fileData);
+    ui->lbWeatherCity->setAlignment(Qt::AlignCenter);
+    ui->lbWeatherCity->setText(QString::number(getAreaIdByCityName(ui->leWeatherCity->text(), fileData)));
+}
+
 void MainWindow::showBmi()
 {
     double height = ui->leHeight->text().toDouble();
@@ -151,7 +179,7 @@ void MainWindow::showCountDown()
 {
     QDateTime currentDateTime = QDateTime::currentDateTime();
     
-    // 设置New Year（例如：2025年1月1日 00:00:00）
+    // 设置New Year
     QDateTime newYearDateTime(QDate(2025, 1, 1), QTime(0, 0, 0));
 
     qint64 secondsLeft = currentDateTime.secsTo(newYearDateTime);
@@ -191,6 +219,5 @@ void MainWindow::showConvertTimestamp()
 
 void MainWindow::showUuid()
 {
-    ui->leUuidCount->setPlaceholderText("输入要生成的UUID数量");
     ui->tbUuid->setText(getUuidInfo(ui->leUuidCount->text().toInt()));
 }
