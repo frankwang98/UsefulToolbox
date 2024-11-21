@@ -23,9 +23,9 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>180</x>
+      <x>170</x>
       <y>10</y>
-      <width>231</width>
+      <width>281</width>
       <height>51</height>
      </rect>
     </property>
@@ -108,7 +108,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>7</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="pageHome">
      <widget class="QGroupBox" name="groupBox_4">
@@ -272,8 +272,8 @@
      <widget class="QLabel" name="label_5">
       <property name="geometry">
        <rect>
-        <x>80</x>
-        <y>50</y>
+        <x>50</x>
+        <y>20</y>
         <width>151</width>
         <height>31</height>
        </rect>
@@ -285,11 +285,16 @@
      <widget class="QTextBrowser" name="tbOS">
       <property name="geometry">
        <rect>
-        <x>70</x>
-        <y>110</y>
-        <width>421</width>
-        <height>461</height>
+        <x>40</x>
+        <y>60</y>
+        <width>491</width>
+        <height>571</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
       </property>
      </widget>
     </widget>
@@ -679,7 +684,7 @@
      <x>0</x>
      <y>0</y>
      <width>600</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>

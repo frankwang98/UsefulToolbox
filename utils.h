@@ -3,6 +3,8 @@
 
 #include <QSysInfo>
 #include <QProcess>
+#include <QHostAddress>
+#include <QNetworkInterface>
 #include <QDateTime>
 #include <QMessageBox>
 #include <QUuid>

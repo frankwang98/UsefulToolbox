@@ -5,10 +5,40 @@ QString getSysInfo()
 {
     QString info;
 
-    // 1. 获取操作系统信息
+    // 获取系统信息等
     info += QString("操作系统: %1\n").arg(QSysInfo::prettyProductName());
     info += QString("版本: %1\n").arg(QSysInfo::productVersion());
     info += QString("架构: %1\n").arg(QSysInfo::currentCpuArchitecture());
+
+    info += QString("\nCPU Information:\n");
+    QProcess cpuProcess;
+    cpuProcess.start("wmic cpu get Name");
+    cpuProcess.waitForFinished();
+    QString cpuResult = cpuProcess.readAllStandardOutput();
+    QString cpuName = cpuResult.split("\n").at(1).trimmed();
+    info += QString("  CPU Name: %1\n").arg(cpuName);
+
+    info += QString("GPU Information:\n");
+    QProcess gpuProcess;
+    gpuProcess.start("wmic path win32_VideoController get Name");
+    gpuProcess.waitForFinished();
+    QString gpuResult = gpuProcess.readAllStandardOutput();
+    QStringList gpuList = gpuResult.split("\n", QString::SkipEmptyParts);
+    for (int i = 1; i < gpuList.size(); i++) {
+        QString gpuName = gpuList.at(i).trimmed();
+        info += QString("  GPU Name: %1\n").arg(gpuName);
+    }
+
+    QList<QNetworkInterface> interfaces = QNetworkInterface::allInterfaces();
+    for (const QNetworkInterface &networkInterface : interfaces) {
+        info += QString("\n网络接口: %1\n").arg(networkInterface.humanReadableName());
+
+        QList<QNetworkAddressEntry> addressEntries = networkInterface.addressEntries();
+        for (const QNetworkAddressEntry &entry : addressEntries) {
+            QHostAddress ip = entry.ip();
+            info += QString("  IP 地址: %1\n").arg(ip.toString());
+        }
+    }
 
     return info;
 }
@@ -32,9 +62,9 @@ QString getBmiInfo(double height, double weight)
     } else if (bmi >= 18.5 && bmi <= 24.9) {
         healthAdvice = "您的体重正常，继续保持健康的生活方式。";
     } else if (bmi >= 25 && bmi <= 29.9) {
-        healthAdvice = "您的体重偏重，建议适当控制饮食并增加运动。";
+        healthAdvice = "您偏胖-强壮doge，建议控制饮食并增加运动。";
     } else {
-        healthAdvice = "您的体重属于肥胖范围，建议制定减重计划。";
+        healthAdvice = "您肥胖了(强壮doge)，建议制定减重计划。";
     }
 
     return QString("您的 BMI 值: %1 \n健康建议: %2")
