@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->setWindowTitle("实用工具箱");
+    this->setWindowTitle("UsefulToolbox");
 
     timer = new QTimer(this);
     timer->start(1000);
@@ -19,7 +19,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->stackedWidget->setCurrentWidget(ui->pageHome);
     ui->pbHome->hide();
 
-    
+    Log4Qt::PropertyConfigurator::configure("log.conf");
+    mylog1 = Log4Qt::Logger::logger("Mylog1");
+
+    mylog1->info("Welcome to UsefulToolbox!");
+    // mylog1->warn("log warn");
+    // mylog1->error("log error");
+    // mylog1->fatal("log fatal");
 }
 
 MainWindow::~MainWindow()
@@ -30,6 +36,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_pbDevice_clicked()
 {
     qDebug() << "pbDevice";
+    mylog1->info("pbDevice");
     ui->stackedWidget->setCurrentWidget(ui->pageDevice);
     ui->pbHome->show();
 

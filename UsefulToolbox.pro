@@ -40,6 +40,9 @@ HEADERS += \
 FORMS += \
         mainwindow.ui
 
+INCLUDEPATH += ./
+
+LIBS += -L./ -llog4qt
 LIBS += -lpthread -lWs2_32
 
 # Default rules for deployment.
