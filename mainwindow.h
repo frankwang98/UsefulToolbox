@@ -18,6 +18,7 @@
 #include <QQmlContext>
 #include <QQuickView>
 #include <QtQuickWidgets>
+#include <QPixmap>
 
 #include "log4qt/logger.h"
 #include "log4qt/propertyconfigurator.h"

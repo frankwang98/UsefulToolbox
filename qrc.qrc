@@ -3,5 +3,7 @@
         <file>mapApp.qml</file>
         <file>helloApp.qml</file>
         <file>cityIds.json</file>
+        <file>icon.ico</file>
+        <file>icon-tool.png</file>
     </qresource>
 </RCC>

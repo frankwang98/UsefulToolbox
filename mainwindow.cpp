@@ -26,6 +26,12 @@ MainWindow::MainWindow(QWidget *parent) :
     // mylog1->warn("log warn");
     // mylog1->error("log error");
     // mylog1->fatal("log fatal");
+
+    QPixmap image(":/icon-tool.png");
+    ui->lbImg->setPixmap(image);
+    ui->lbImg->setAlignment(Qt::AlignCenter);
+    ui->lbImg->setScaledContents(true);
+    ui->lbImg->setVisible(false);
 }
 
 MainWindow::~MainWindow()
@@ -145,6 +151,14 @@ void MainWindow::on_pbHome_clicked()
 void MainWindow::on_pbShare_clicked()
 {
     qDebug() << "pbShare";
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("About me");
+    msgBox.setText("DevFrank实用工具箱PC端，复刻同名wx小程序\n\n"
+                    "GitHub: https://github.com/frankwang98\n"
+                    "CSDN: https://devfrank.blog.csdn.net/\n"
+                    "Wx小程序: DevFrank实用工具箱");
+    msgBox.setIcon(QMessageBox::Information);
+    msgBox.exec();
 }
 
 /***************************************************************************/
@@ -159,7 +173,6 @@ void MainWindow::showDateTime()
 void MainWindow::showClock()
 {
     QDateTime currentDateTime = QDateTime::currentDateTime();
-
     QString dateTimeString2 = currentDateTime.toString("hh:mm:ss");
     ui->lbClockInfo->setAlignment(Qt::AlignCenter);
     ui->lbClockInfo->setText(dateTimeString2);
@@ -185,7 +198,6 @@ void MainWindow::showBmi()
 void MainWindow::showCountDown()
 {
     QDateTime currentDateTime = QDateTime::currentDateTime();
-    
     // 设置New Year
     QDateTime newYearDateTime(QDate(2025, 1, 1), QTime(0, 0, 0));
 
