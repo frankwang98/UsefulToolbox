@@ -86,6 +86,9 @@ void MainWindow::on_pbWeather_clicked()
 
     ui->leWeatherCity->setPlaceholderText("输入城市名");
     connect(ui->pbWeatherCity, &QPushButton::clicked, this, &MainWindow::showWeather);
+
+    ui->leLongitude->setPlaceholderText("输入经度");
+    connect(ui->pbUtm, &QPushButton::clicked, this, &MainWindow::showUtm);
 }
 
 void MainWindow::on_pbBmi_clicked()
@@ -185,6 +188,12 @@ void MainWindow::showWeather()
     // qDebug() << "test: " << getAreaIdByCityName("xx", fileData);
     ui->lbWeatherCity->setAlignment(Qt::AlignCenter);
     ui->lbWeatherCity->setText(QString::number(getAreaIdByCityName(ui->leWeatherCity->text(), fileData)));
+}
+
+void MainWindow::showUtm()
+{
+    double longitude = ui->leLongitude->text().toDouble();
+    ui->lbUtm->setText(QString::number(longitudeToZone(longitude)));
 }
 
 void MainWindow::showBmi()

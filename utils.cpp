@@ -140,3 +140,8 @@ int getAreaIdByCityName(const QString &cityName, const QByteArray &fileData)
 
     return -1;
 }
+
+int longitudeToZone(double longitude) 
+{
+    return int(floor((longitude + 180) / 6)) + 1;
+}

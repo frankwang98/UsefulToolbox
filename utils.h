@@ -30,4 +30,6 @@ QByteArray getJsonData(const QString &url);
 
 int getAreaIdByCityName(const QString &cityName, const QByteArray &fileData);
 
+int longitudeToZone(double longitude);
+
 #endif // UTILS_H
